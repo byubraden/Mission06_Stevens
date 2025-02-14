@@ -23,12 +23,14 @@ public class HomeController : Controller
         return View();
     }
     
+    // Get route for adding movies page
     [HttpGet]
     public IActionResult AddMovies()
     {
         return View();
     }
 
+    // post route for adding movies to the database
     [HttpPost]
     public IActionResult AddMovies(movie response)
     {

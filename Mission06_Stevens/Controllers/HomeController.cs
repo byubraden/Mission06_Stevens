@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mission06_Stevens.Models;
 
 namespace Mission06_Stevens.Controllers;
@@ -32,11 +33,31 @@ public class HomeController : Controller
 
     // post route for adding movies to the database
     [HttpPost]
-    public IActionResult AddMovies(movie response)
+    public IActionResult AddMovies(Movie response)
     {
-        _context.movies.Add(response);
+        _context.Movies.Add(response);
         _context.SaveChanges();
         return View("AddMovieConfirmation", response);
+    }
+
+    public IActionResult MovieList()
+    {
+        var movies = _context.Movies
+            .Include(x => x.Category)
+            .ToList();
+        
+        return View(movies);
+    }
+
+    public IActionResult EditMovie(int id)
+    {
+        var movieToEdit = _context.Movies.Single(x => x.MovieId == id);
+        
+        ViewBag.Majors = _context.Categories
+            .OrderBy(x => x.CategoryName)
+            .ToList();
+        
+        return View("AddMovies", movieToEdit);
     }
     
 }

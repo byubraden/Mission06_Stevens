@@ -48,7 +48,7 @@ public class HomeController : Controller
         
         return View(movies);
     }
-
+    [HttpGet]
     public IActionResult EditMovie(int id)
     {
         var movieToEdit = _context.Movies.Single(x => x.MovieId == id);
@@ -58,6 +58,32 @@ public class HomeController : Controller
             .ToList();
         
         return View("AddMovies", movieToEdit);
+    }
+    
+    [HttpPost]
+    public IActionResult EditMovie(Movie updatedInfo)
+    {
+        _context.Movies.Update(updatedInfo);
+        _context.SaveChanges();
+        
+        return RedirectToAction("MovieList");
+    }
+
+    [HttpGet]
+    public IActionResult DeleteMovie(int id)
+    {
+        var movieToDelete = _context.Movies.Single(x => x.MovieId == id);
+        
+        return View(movieToDelete);
+    }
+
+    [HttpPost]
+    public IActionResult DeleteMovie(Movie movieToDelete)
+    {
+        _context.Movies.Remove(movieToDelete);
+        _context.SaveChanges();
+        
+        return RedirectToAction("MovieList");
     }
     
 }

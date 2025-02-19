@@ -40,6 +40,7 @@ public class HomeController : Controller
         return View("AddMovieConfirmation", response);
     }
 
+    // load movie database
     public IActionResult MovieList()
     {
         var movies = _context.Movies
@@ -48,6 +49,8 @@ public class HomeController : Controller
         
         return View(movies);
     }
+    
+    //load edit values for add movies
     [HttpGet]
     public IActionResult EditMovie(int id)
     {
@@ -60,6 +63,7 @@ public class HomeController : Controller
         return View("AddMovies", movieToEdit);
     }
     
+    //update the movie
     [HttpPost]
     public IActionResult EditMovie(Movie updatedInfo)
     {
@@ -69,6 +73,7 @@ public class HomeController : Controller
         return RedirectToAction("MovieList");
     }
 
+    //Get method for loading the delete movie page
     [HttpGet]
     public IActionResult DeleteMovie(int id)
     {
@@ -77,6 +82,7 @@ public class HomeController : Controller
         return View(movieToDelete);
     }
 
+    // Post for removing the movie from the database
     [HttpPost]
     public IActionResult DeleteMovie(Movie movieToDelete)
     {

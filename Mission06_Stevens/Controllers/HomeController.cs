@@ -60,7 +60,7 @@ public class HomeController : Controller
     {
         var movieToEdit = _context.Movies.Single(x => x.MovieId == id);
         
-        ViewBag.Majors = _context.Categories
+        ViewBag.Categories = _context.Categories
             .OrderBy(x => x.CategoryName)
             .ToList();
         

@@ -28,6 +28,10 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult AddMovies()
     {
+        ViewBag.Categories = _context.Categories
+            .OrderBy(x => x.CategoryName)
+            .ToList();
+        
         return View();
     }
 

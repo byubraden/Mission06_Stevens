@@ -24,7 +24,13 @@
 
     <div class="mb-3">
         <label asp-for="Category.CategoryName" class="form-label">Category (Required):</label>
-        <input type="text" asp-for="Category.CategoryName" class="form-control" required>
+        <select asp-for="CategoryId" class="form-select">
+            <option value="">-- Select a Category --</option>
+            @foreach (Category m in ViewBag.Categories)
+            {
+                <option value="@m.CategoryId">@m.CategoryName</option>
+            }
+        </select>
     </div>
 
     <div class="mb-3">

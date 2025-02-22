@@ -1,8 +1,7 @@
 @model List<Movie>
 
-<table class = "table table-bordered" >
-    
-    <thead class = "fw-bold">
+<table class="table table-bordered table-striped table-hover text-center shadow-lg rounded">
+    <thead class="fw-bold table-dark">
     <tr>
         <td>Title</td>
         <td>Category</td>
@@ -10,14 +9,15 @@
         <td>Director</td>
         <td>Rating</td>
         <td>Edited</td>
-        <td>LentTo</td>
-        <td>CopiedToPlex</td>
+        <td>Lent To</td>
+        <td>Copied To Plex</td>
         <td>Notes</td>
+        <td>Actions</td>
     </tr>
     </thead>
-
-    @foreach(var x in Model) { 
-        <tbody>
+    <tbody>
+    @foreach (var x in Model)
+    {
         <tr>
             <td>@x.Title</td>
             <td>@(x.Category?.CategoryName ?? "NULL")</td>
@@ -28,11 +28,14 @@
             <td>@x.LentTo</td>
             <td>@x.CopiedToPlex</td>
             <td>@x.Notes</td>
-            <td><a class="btn btn-info" asp-controller="Home" asp-action="EditMovie" asp-route-id="@x.MovieId">Edit</a></td>
-            <td><a class="btn btn-danger" asp-controller="Home" asp-action="DeleteMovie" asp-route-id="@x.MovieId">Delete</a></td>
-        </tr> 
-        </tbody>
+            
+            <td>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-info btn-sm" asp-controller="Home" asp-action="EditMovie" asp-route-id="@x.MovieId">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Home" asp-action="DeleteMovie" asp-route-id="@x.MovieId">Delete</a>
+                </div>
+            </td>
+        </tr>
     }
-   
-    
+    </tbody>
 </table>
